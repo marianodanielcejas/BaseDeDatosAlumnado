@@ -24,8 +24,16 @@ namespace Alumnado.BD.Data.Entidades
         [MaxLength(50, ErrorMessage = "La Nota del alumno no puede superar {1} caracteres")]
         public string NotaAlumno { get; set; }
 
+        [Required(ErrorMessage = "Este campo es obligatorio")]
+        public int IdGrado { get; set; }
+
         public Grado Grado { get; set; }
 
-        public Inscripto Inscripto { get; set; }    
+        [Required(ErrorMessage = "Este campo es obligatorio")]
+        public int IdInscripto { get; set; }
+
+        public Inscripto Inscripto { get; set; }
+
+        public string InformeAlumno { get; set; }
     }
 }

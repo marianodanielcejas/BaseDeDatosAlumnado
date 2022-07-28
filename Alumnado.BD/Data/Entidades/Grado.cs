@@ -20,8 +20,11 @@ namespace Alumnado.BD.Data.Entidades
         [MaxLength(150, ErrorMessage = "La materia del alumno no puede superar {1} caracteres")]
         public string NombreMateria { get; set; }
 
+
+        [Required(ErrorMessage = "El Campo es obligatorio")]
         public List <Inscripto> Inscriptos { get; set; }
 
+        [Required(ErrorMessage = "El Campo es obligatorio")]
         public List <Alumno> Alumnos { get; set; }
     }
 }

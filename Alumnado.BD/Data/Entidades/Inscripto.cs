@@ -15,12 +15,12 @@ namespace Alumnado.BD.Data.Entidades
         [MaxLength(5, ErrorMessage = "El Código del alumno matriculado no puede superar {1} caracteres")]
         public string CodigoAlumnoMatriculado { get; set; }
 
-        [Required(ErrorMessage = "El alumno es obligatorio")]
+        [Required(ErrorMessage = "El Campo es obligatorio")]
         public  int AlumnoId { get; set; }
 
         public Alumno Alumno { get; set; }
 
-        [Required(ErrorMessage = "El Grado es obligatorio")]
+        [Required(ErrorMessage = "El Campo es obligatorio")]
 
         public int GradoId { get; set; }
 
