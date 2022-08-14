@@ -67,9 +67,6 @@ namespace BaseDeDatosAlumnado.Server.Controllers
             }
             alum.DNI = alumno.DNI;
             alum.NombreCompletoAlumno = alumno.NombreCompletoAlumno;
-            alum.NotasAlumno = alumno.NotasAlumno;
-            alum.Grado = alumno.Grado;
-            alum.NombreMateriaCursada = alumno.NombreMateriaCursada;
             alum.FechaCreacion = alumno.FechaCreacion;
 
             try
