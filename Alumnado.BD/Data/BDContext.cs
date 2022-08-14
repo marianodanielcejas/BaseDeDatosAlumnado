@@ -12,7 +12,7 @@ namespace Alumnado.BD.Data
     {
         public DbSet <Alumno> Alumnos { get; set; }
 
-        public DbSet <Materia> Materia { get; set; }
+        public DbSet <Materia> Materias { get; set; }
 
         public DbSet <Nota> Notas { get; set; }
 

@@ -20,7 +20,7 @@ namespace BaseDeDatosAlumnado.Server.Controllers
 
         public async Task <ActionResult<List<Alumno>>>Get()
         {
-            return await context.Alumnos.ToListAsync();
+            return await context.Alumnos.Include(n => n.Notas).Include(m => m.Materia).ToListAsync();
         }
 
         [HttpGet("{id:int}")] // por direccion quiero que me llegue un id.
@@ -31,7 +31,7 @@ namespace BaseDeDatosAlumnado.Server.Controllers
 
             if (alumno == null)
             {
-                return NotFound($"El alumno que ingreso con id {id} no esta matriculado en el establecimiento");
+                return NotFound($"El alumno que ingreso con id {id} no existe");
             }
             return alumno;
         }

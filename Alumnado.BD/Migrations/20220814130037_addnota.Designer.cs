@@ -4,6 +4,7 @@ using Alumnado.BD.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Alumnado.BD.Migrations
 {
     [DbContext(typeof(dbContext))]
-    partial class dbContextModelSnapshot : ModelSnapshot
+    [Migration("20220814130037_addnota")]
+    partial class addnota
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,7 +84,7 @@ namespace Alumnado.BD.Migrations
                     b.HasIndex(new[] { "CodMateria" }, "CodigoMateria_UQ")
                         .IsUnique();
 
-                    b.ToTable("Materias");
+                    b.ToTable("Materia");
                 });
 
             modelBuilder.Entity("Alumnado.BD.Data.Entidades.Nota", b =>

@@ -4,6 +4,7 @@ using Alumnado.BD.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Alumnado.BD.Migrations
 {
     [DbContext(typeof(dbContext))]
-    partial class dbContextModelSnapshot : ModelSnapshot
+    [Migration("20220814125158_Inicio")]
+    partial class Inicio
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,7 +84,7 @@ namespace Alumnado.BD.Migrations
                     b.HasIndex(new[] { "CodMateria" }, "CodigoMateria_UQ")
                         .IsUnique();
 
-                    b.ToTable("Materias");
+                    b.ToTable("Materia");
                 });
 
             modelBuilder.Entity("Alumnado.BD.Data.Entidades.Nota", b =>
@@ -93,7 +95,7 @@ namespace Alumnado.BD.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("AlumnoId")
+                    b.Property<int?>("AlumnoId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("FechaCreacion")
@@ -123,13 +125,9 @@ namespace Alumnado.BD.Migrations
 
             modelBuilder.Entity("Alumnado.BD.Data.Entidades.Nota", b =>
                 {
-                    b.HasOne("Alumnado.BD.Data.Entidades.Alumno", "Alumno")
+                    b.HasOne("Alumnado.BD.Data.Entidades.Alumno", null)
                         .WithMany("Notas")
-                        .HasForeignKey("AlumnoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Alumno");
+                        .HasForeignKey("AlumnoId");
                 });
 
             modelBuilder.Entity("Alumnado.BD.Data.Entidades.Alumno", b =>
