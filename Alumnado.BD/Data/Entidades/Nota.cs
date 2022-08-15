@@ -10,8 +10,8 @@ namespace Alumnado.BD.Data.Entidades
     public class Nota:EntityBase
     {
         [Required(ErrorMessage = "Este campo es obligatorio")]
-        [MaxLength(2, ErrorMessage = "La nota del alumno no puede superar {1} caracteres")]
-        public int NotaAlum { get; set; }
+        [MaxLength(6, ErrorMessage = "La nota del alumno no puede superar {1} caracteres")]
+        public string NotaAlum { get; set; }
 
         public int AlumnoId { get; set; }
 
