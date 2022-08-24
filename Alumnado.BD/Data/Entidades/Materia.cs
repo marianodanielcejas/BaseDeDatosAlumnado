@@ -16,7 +16,7 @@ namespace Alumnado.BD.Data.Entidades
         public string CodMateria { get; set; }
 
         [Required(ErrorMessage = "Este campo es obligatorio")]
-        [MaxLength(15, ErrorMessage = "El Nombre de la materia no puede superar {1} caracteres")]
+        [MaxLength(20, ErrorMessage = "El Nombre de la materia no puede superar {1} caracteres")]
         public string NombreMateria { get; set; }
 
         public List<Alumno> Alumnos { get; set; }
