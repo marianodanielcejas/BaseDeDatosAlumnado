@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Alumnado.BD.Data.Entidades
 {
-    //[Index(nameof(DNI), Name = "AlumnoDni_UQ", IsUnique = true)]
+    [Index(nameof(DNI),(nameof(NombreCompletoAlumno)), Name = "NomAlumnoDni_UQ", IsUnique = true)]
     public class Alumno: EntityBase
     {
         [Required(ErrorMessage = "Este campo es obligatorio")]
