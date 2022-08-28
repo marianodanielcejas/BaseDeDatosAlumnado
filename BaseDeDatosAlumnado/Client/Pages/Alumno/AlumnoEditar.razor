@@ -1,0 +1,36 @@
+﻿@page "/alumnos/editar/{AlumnoId:int}/{nomAlumno}/{DNIalum}" 
+@inject NavigationManager navigationManager
+<h2>Modificar Alumno</h2>
+
+<AlumnoFormulario onValidSubmit="GrabarModificacion" Alumno="alumno" onCancel="Cancelar"/>
+
+@code {
+    private Alumno alumno;
+    [Parameter] public int AlumnoId { get; set; }
+    [Parameter] public  string  nomAlumno { get; set; }
+    [Parameter] public  string  DNIalum { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        alumno = new()
+            {
+                Id = AlumnoId,
+                NombreCompletoAlumno = nomAlumno,
+                DNI = DNIalum
+            };
+     }
+      private async Task GrabarModificacion() //Metodo para agregar un pais.
+    {
+        Console.WriteLine($"Graba modificacion{alumno.NombreCompletoAlumno}");
+        navigationManager.NavigateTo("/alumnos");
+        //Alumnado.BD.Data.Entidades.Alumno alumno = new();
+        //alumno.NombreCompletoAlumno = NomAlumno;
+        //alumno.DNI = DniAlumno;
+        //alumnos.Add(alumno);
+        //Cancelar();
+    }
+    private async Task Cancelar()
+    {
+        navigationManager.NavigateTo("/alumnos");
+    }
+}

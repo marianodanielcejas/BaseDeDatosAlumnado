@@ -1,0 +1,26 @@
+﻿<EditForm Model="Alumno" OnInvalidSubmit="onValidSubmit">
+    <DataAnnotationsValidator/>
+    <div class = "form-group">
+        <label>Nombre del Alumno</label>
+        <div>
+            <InputText class = "form-control" @bind-Value = "@Alumno.NombreCompletoAlumno"/>
+            <ValidationMessage For="@(()=> Alumno.NombreCompletoAlumno)"/>
+        </div>
+    </div>
+    <div class = "form-group">
+        <label>DNI del alumno</label>
+        <div>
+            <InputText class = "form-control" @bind-Value = "@Alumno.DNI"/>
+              <ValidationMessage For="@(()=> Alumno.DNI)"/>
+        </div>
+    </div>
+    <br />
+    <button class = "btn btn-primary" type="submit">Guardar</button>
+    <button class = "btn btn-secondary" @onclick="onCancel" type="button">Cancelar</button>
+</EditForm>
+
+@code {
+    [Parameter] public Alumno Alumno{ get; set; }
+    [Parameter] public EventCallback onValidSubmit{ get; set; }
+    [Parameter] public EventCallback onCancel{ get; set; }
+}

@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Alumnado.BD\Alumnado.BD.csproj" />
     <ProjectReference Include="..\Shared\BaseDeDatosAlumnado.Shared.csproj" />
   </ItemGroup>
 

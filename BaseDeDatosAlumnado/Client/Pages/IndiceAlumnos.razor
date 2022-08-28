@@ -1,0 +1,142 @@
+﻿@page "/Alumnos"
+<h3>Alumnos</h3>
+<a class = "btn btn-success" href="alumnos/crear">Nuevo</a>
+<br />
+<table>
+    <tr>
+        <th>NombreAlumno</th>
+        <th>DniAlumno</th>
+    </tr>
+    @if(alumnos == null)
+    {
+        <tr>Cargando.....</tr>
+    }
+    else if(alumnos.Count == 0) // Si todavia no cargue ningun alumno.
+    {
+        <tr>No existen Alumnos</tr>
+    }
+    else
+    {
+        @foreach(var item in alumnos) //Quiero se muestre la lista de registros de alumnos.
+        {
+            <tr>
+                <td>@item.NombreCompletoAlumno</td>
+                <td>@item.DNI</td>
+                <td><a class = "btn btn-success" href="alumnos/editar/@item.Id/@item.NombreCompletoAlumno/@item.DNI">
+                    Editar Alumno
+                    </a>
+                </td>
+                <td><button class = "btn btn-warning" @onclick = "()=>Eliminar(item)"> Eliminar Alumno</button></td>
+            </tr>
+        }   
+    } 
+</table>
+
+<Confirmacion @ref = "confirmacion"
+              onConfirm = "GrabarEliminar"
+              onCancel = "Cancelar">
+              
+    <h1>Titulo interno</h1>
+    <div>¿Desea eliminar el alumno?</div>
+</Confirmacion>
+
+@*@if(nuevo)
+{
+    @if (editar || eliminar)
+    {
+        Cancelar();
+        nuevo = true;
+    }
+    <br />
+    <h3>Nuevo Alumno</h3>
+    <br />
+    <input placeholder = "Nombre del alumno" @bind = "NomAlumno"/>
+    <input placeholder = "DNI del Alumno" @bind = "DniAlumno"/>
+    <button class = "btn btn-success" @onclick = "GrabarNuevo"> Grabar </button>  
+    <button class = "btn btn-info" @onclick = "Cancelar"> Cancelar </button> 
+} *@
+@*@if(editar)
+{
+    <br />
+    <h3>Editar Alumno</h3>
+    <br />
+    <input placeholder = "Nombre del alumno" @bind = "NomAlumno"/>
+    <input placeholder = "DNI del Alumno" @bind = "DniAlumno"/>
+    <button class = "btn btn-success" @onclick = "GrabarEditar"> Grabar </button>  
+    <button class = "btn btn-info" @onclick = "Cancelar"> Cancelar </button> 
+}  
+@if(eliminar)
+{
+    <br />
+    <h3>Eliminar Alumno</h3>
+    <br />
+    <input placeholder = "Nombre del alumno" @bind = "NomAlumno"/>
+    <input placeholder = "DNI del Alumno" @bind = "DniAlumno"/>
+    <button class = "btn btn-success" @onclick = "GrabarEliminar"> Eliminar </button>  
+    <button class = "btn btn-info" @onclick = "Cancelar"> Cancelar </button> 
+}   *@
+
+@code {
+
+    List <Alumnado.BD.Data.Entidades.Alumno> alumnos;
+    Confirmacion confirmacion;
+    string NomAlumno = "";
+    string DniAlumno = "";
+    Alumnado.BD.Data.Entidades.Alumno eliminarAlumno;
+    
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+
+        alumnos = new()
+        {
+            new Alumnado.BD.Data.Entidades.Alumno() 
+            { NombreCompletoAlumno = "Mariano Cejas", DNI = "39658745" },
+            new Alumnado.BD.Data.Entidades.Alumno()
+            { NombreCompletoAlumno = "Juan Ledesma", DNI = "38569547" }
+        };
+    }
+
+    private void Cancelar()
+    {
+        //nuevo = false;
+        confirmacion.Ocultar();
+        eliminarAlumno = null;
+        //editar = false;
+        //eliminar = false;
+        //NomAlumno = "";
+        //DniAlumno = "";
+    }
+    //private void Editar(Alumnado.BD.Data.Entidades.Alumno alumnoEditar)
+    //{
+    //    //if(nuevo || eliminar)
+    //    //{
+    //    //    Cancelar();
+    //    //    editar = true;
+    //    //}
+    //    //editar = true;
+    //    NomAlumno = alumnoEditar.NombreCompletoAlumno;
+    //    DniAlumno = alumnoEditar.DNI;
+    //    //editarAlumno = alumnoEditar;
+    //}
+    private void Eliminar(Alumnado.BD.Data.Entidades.Alumno alumnoEliminar)
+    {
+        confirmacion.Mostrar();
+        NomAlumno = alumnoEliminar.NombreCompletoAlumno;
+        DniAlumno = alumnoEliminar.DNI;
+        eliminarAlumno = alumnoEliminar;
+    }
+    private void GrabarEliminar()
+    {
+        alumnos.Remove(eliminarAlumno);
+        Cancelar();
+    }
+    //private void GrabarEditar()
+    //{
+    //    alumnos.Remove(editarAlumno);
+    //    alumnos.Add(new Alumnado.BD.Data.Entidades.Alumno() { NombreCompletoAlumno = NomAlumno , DNI = DniAlumno });
+    //    Cancelar();
+    //}
+}

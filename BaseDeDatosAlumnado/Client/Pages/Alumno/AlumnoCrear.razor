@@ -1,0 +1,22 @@
+﻿@page "/alumnos/crear"
+@inject NavigationManager navigationManager
+<h2>Nuevo Alumno</h2>
+
+<AlumnoFormulario onValidSubmit="GrabarNuevo" Alumno="alumno" onCancel="Cancelar"/>
+@code {
+    private Alumno alumno = new();
+    private async Task GrabarNuevo() //Metodo para agregar un pais.
+    {
+        Console.WriteLine($"Graba{alumno.NombreCompletoAlumno}");
+        navigationManager.NavigateTo("/alumnos");
+        //Alumnado.BD.Data.Entidades.Alumno alumno = new();
+        //alumno.NombreCompletoAlumno = NomAlumno;
+        //alumno.DNI = DniAlumno;
+        //alumnos.Add(alumno);
+        //Cancelar();
+    }
+    private async Task Cancelar()
+    {
+        navigationManager.NavigateTo("/alumnos");
+    }
+}

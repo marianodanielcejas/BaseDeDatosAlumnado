@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32407.343
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaseDeDatosAlumnado.Server", "BaseDeDatosAlumnado\Server\BaseDeDatosAlumnado.Server.csproj", "{30F72DFA-DE5C-45E6-B352-B10C5A3C02D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaseDeDatosAlumnado.Server", "BaseDeDatosAlumnado\Server\BaseDeDatosAlumnado.Server.csproj", "{30F72DFA-DE5C-45E6-B352-B10C5A3C02D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaseDeDatosAlumnado.Client", "BaseDeDatosAlumnado\Client\BaseDeDatosAlumnado.Client.csproj", "{ECDFE05D-3BCA-4791-AC0D-5A91E2BAFB2F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaseDeDatosAlumnado.Client", "BaseDeDatosAlumnado\Client\BaseDeDatosAlumnado.Client.csproj", "{ECDFE05D-3BCA-4791-AC0D-5A91E2BAFB2F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaseDeDatosAlumnado.Shared", "BaseDeDatosAlumnado\Shared\BaseDeDatosAlumnado.Shared.csproj", "{1B1883C9-AD72-4903-8238-BF8EB03234CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaseDeDatosAlumnado.Shared", "BaseDeDatosAlumnado\Shared\BaseDeDatosAlumnado.Shared.csproj", "{1B1883C9-AD72-4903-8238-BF8EB03234CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alumnado.BD", "Alumnado.BD\Alumnado.BD.csproj", "{032398A2-EF66-419C-89BC-9D647B566CD1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alumnado.BD", "Alumnado.BD\Alumnado.BD.csproj", "{032398A2-EF66-419C-89BC-9D647B566CD1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
