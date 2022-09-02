@@ -1,4 +1,4 @@
-﻿@page "/alumnos/editar/{AlumnoId:int}/{nomAlumno}/{DNIalum}" 
+﻿@page "/alumnos/editar/{AlumnoId:int}/{NomAlumno}/{DniAlumno}" 
 @inject NavigationManager navigationManager
 <h2>Modificar Alumno</h2>
 
@@ -7,22 +7,23 @@
 @code {
     private Alumno alumno;
     [Parameter] public int AlumnoId { get; set; }
-    [Parameter] public  string  nomAlumno { get; set; }
-    [Parameter] public  string  DNIalum { get; set; }
+    [Parameter] public  string  NomAlumno { get; set; }
+    [Parameter] public  string  DniAlumno { get; set; }
 
     protected async override Task OnInitializedAsync()
     {
-        alumno = new()
+            alumno = new()
             {
                 Id = AlumnoId,
-                NombreCompletoAlumno = nomAlumno,
-                DNI = DNIalum
+                NombreCompletoAlumno = NomAlumno,
+                DNI = DniAlumno
             };
-     }
+    }
       private async Task GrabarModificacion() //Metodo para agregar un pais.
     {
-        Console.WriteLine($"Graba modificacion{alumno.NombreCompletoAlumno}");
+        Console.WriteLine($"Graba modificacion {alumno.NombreCompletoAlumno}");
         navigationManager.NavigateTo("/alumnos");
+        //APARENTEMENTE EL ERROR ESTA EL EL REDIRECCIONAMIENTO NO ES alumnos es Alumnos.
         //Alumnado.BD.Data.Entidades.Alumno alumno = new();
         //alumno.NombreCompletoAlumno = NomAlumno;
         //alumno.DNI = DniAlumno;
