@@ -1,5 +1,7 @@
-﻿@page "/alumnos/editar/{AlumnoId:int}/{NomAlumno}/{DniAlumno}" 
+﻿@page "/alumnos/editar/{AlumnoId:int}" 
 @inject NavigationManager navigationManager
+@inject IHttpService http
+
 <h2>Modificar Alumno</h2>
 
 <AlumnoFormulario onValidSubmit="GrabarModificacion" Alumno="alumno" onCancel="Cancelar"/>
@@ -7,30 +9,36 @@
 @code {
     private Alumno alumno;
     [Parameter] public int AlumnoId { get; set; }
-    [Parameter] public  string  NomAlumno { get; set; }
-    [Parameter] public  string  DniAlumno { get; set; }
 
     protected async override Task OnInitializedAsync()
     {
-            alumno = new()
-            {
-                Id = AlumnoId,
-                NombreCompletoAlumno = NomAlumno,
-                DNI = DniAlumno
-            };
+        await MostrarAlumno();
     }
-      private async Task GrabarModificacion() //Metodo para agregar un pais.
+    private async Task MostrarAlumno()
     {
-        Console.WriteLine($"Graba modificacion {alumno.NombreCompletoAlumno}");
-        navigationManager.NavigateTo("/alumnos");
-        //APARENTEMENTE EL ERROR ESTA EL EL REDIRECCIONAMIENTO NO ES alumnos es Alumnos.
-        //Alumnado.BD.Data.Entidades.Alumno alumno = new();
-        //alumno.NombreCompletoAlumno = NomAlumno;
-        //alumno.DNI = DniAlumno;
-        //alumnos.Add(alumno);
-        //Cancelar();
+        var httpRespuesta = await http.Get<Alumno>($"api/Alumnos/{AlumnoId}");
+        if (httpRespuesta.Error)
+        {
+            var body = await httpRespuesta.GetBody();
+        }
+        else
+        {
+            alumno = httpRespuesta.Respuesta;
+        }
     }
-    private async Task Cancelar()
+
+
+    private async Task GrabarModificacion() //Metodo para agregar un pais.
+    {
+         var httpRespuesta = await http.Put<Alumno>($"api/Alumnos/{AlumnoId}", alumno);
+        if (httpRespuesta.Error)
+        {
+            var body = await httpRespuesta.GetBody();
+        }
+        navigationManager.NavigateTo("/alumnos");
+        
+    }
+    private void Cancelar()
     {
         navigationManager.NavigateTo("/alumnos");
     }

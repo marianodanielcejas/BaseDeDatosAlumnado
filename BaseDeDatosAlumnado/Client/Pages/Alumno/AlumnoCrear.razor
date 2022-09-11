@@ -1,5 +1,6 @@
 ﻿@page "/alumnos/crear"
 @inject NavigationManager navigationManager
+@inject IHttpService http
 <h2>Nuevo Alumno</h2>
 
 <AlumnoFormulario onValidSubmit="GrabarNuevo" Alumno="alumno" onCancel="Cancelar"/>
@@ -7,7 +8,12 @@
     private Alumno alumno = new();
     private async Task GrabarNuevo() //Metodo para agregar un pais.
     {
-        Console.WriteLine($"Graba{alumno.NombreCompletoAlumno}");
+        //Console.WriteLine($"Graba{alumno.NombreCompletoAlumno}");
+        var httpRespuesta = await http.Post<Alumno>("api/Alumnos", alumno);
+        if (httpRespuesta.Error)
+        {
+            var body = await httpRespuesta.GetBody();
+        }
         navigationManager.NavigateTo("/alumnos");
         //Alumnado.BD.Data.Entidades.Alumno alumno = new();
         //alumno.NombreCompletoAlumno = NomAlumno;
@@ -15,8 +21,8 @@
         //alumnos.Add(alumno);
         //Cancelar();
     }
-    private async Task Cancelar()
+    private void Cancelar()
     {
-        navigationManager.NavigateTo("/alumnos");
+         navigationManager.NavigateTo("/alumnos");
     }
 }
