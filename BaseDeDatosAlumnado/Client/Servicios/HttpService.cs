@@ -5,16 +5,16 @@ namespace BaseDeDatosAlumnado.Client.Servicios
 {
     public class HttpService : IHttpService
     {
-        private readonly HttpClient httpClient;
+        private readonly HttpClient http;
 
         public HttpService(HttpClient http)
         {
-            this.httpClient = http;
+            this.http = http;
         }
 
         public async Task<HttpRespuesta<T>> Get<T>(string url)
         {
-            var respuestaHttp = await httpClient.GetAsync(url);
+            var respuestaHttp = await http.GetAsync(url);
 
             if (respuestaHttp.IsSuccessStatusCode)
             {
@@ -40,7 +40,7 @@ namespace BaseDeDatosAlumnado.Client.Servicios
                 var enviarContent = new StringContent(enviarJSON,
                                                       Encoding.UTF8,
                                                       "application/json");
-                var respuestaHTTP = await httpClient.PostAsync(url, enviarContent);
+                var respuestaHTTP = await http.PostAsync(url, enviarContent);
                 return new HttpRespuesta<object>(null,
                                                  !respuestaHTTP.IsSuccessStatusCode,
                                                  respuestaHTTP);
@@ -57,7 +57,7 @@ namespace BaseDeDatosAlumnado.Client.Servicios
                 var enviarContent = new StringContent(enviarJSON,
                                                       Encoding.UTF8,
                                                       "application/json");
-                var respuestaHTTP = await httpClient.PutAsync(url, enviarContent);
+                var respuestaHTTP = await http.PutAsync(url, enviarContent);
                 return new HttpRespuesta<object>(null,
                                                  !respuestaHTTP.IsSuccessStatusCode,
                                                  respuestaHTTP);
@@ -67,7 +67,7 @@ namespace BaseDeDatosAlumnado.Client.Servicios
 
         public async Task<HttpRespuesta<object>> Delete (string url)
         {
-            var respuestaHTTP = await httpClient.DeleteAsync(url);
+            var respuestaHTTP = await http.DeleteAsync(url);
 
             return new HttpRespuesta<object>(null,
                                              !respuestaHTTP.IsSuccessStatusCode,

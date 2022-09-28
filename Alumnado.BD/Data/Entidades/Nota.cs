@@ -16,5 +16,9 @@ namespace Alumnado.BD.Data.Entidades
         public int AlumnoId { get; set; }
 
         public Alumno Alumno { get; set; }
+
+        //public int MateriaId
+
+        //public Materia Materia
     }
 }
