@@ -21,8 +21,7 @@ namespace Alumnado.BD.Data.Entidades
 
         public List<Nota> Notas { get; set; }
 
-        [Required(ErrorMessage = "La Materia es obligatorio")]
-        public int MateriaId { get; set; }
+        public int? MateriaId { get; set; }
 
         public Materia Materia { get; set; }
 

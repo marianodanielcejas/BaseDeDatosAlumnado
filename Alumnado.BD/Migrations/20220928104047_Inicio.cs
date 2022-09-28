@@ -10,18 +10,18 @@ namespace Alumnado.BD.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Materia",
+                name: "Materias",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CodMateria = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false),
-                    NombreMateria = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    NombreMateria = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     FechaCreacion = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Materia", x => x.Id);
+                    table.PrimaryKey("PK_Materias", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -32,18 +32,17 @@ namespace Alumnado.BD.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DNI = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
                     NombreCompletoAlumno = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
-                    MateriaId = table.Column<int>(type: "int", nullable: false),
+                    MateriaId = table.Column<int>(type: "int", nullable: true),
                     FechaCreacion = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Alumnos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Alumnos_Materia_MateriaId",
+                        name: "FK_Alumnos_Materias_MateriaId",
                         column: x => x.MateriaId,
-                        principalTable: "Materia",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalTable: "Materias",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -52,7 +51,7 @@ namespace Alumnado.BD.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NotaAlum = table.Column<int>(type: "int", maxLength: 2, nullable: false),
+                    NotaAlum = table.Column<string>(type: "nvarchar(6)", maxLength: 6, nullable: false),
                     AlumnoId = table.Column<int>(type: "int", nullable: true),
                     FechaCreacion = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
@@ -67,19 +66,19 @@ namespace Alumnado.BD.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "AlumnoDniNombre_UQ",
-                table: "Alumnos",
-                columns: new[] { "DNI", "NombreCompletoAlumno" },
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Alumnos_MateriaId",
                 table: "Alumnos",
                 column: "MateriaId");
 
             migrationBuilder.CreateIndex(
+                name: "NomAlumnoDni_UQ",
+                table: "Alumnos",
+                columns: new[] { "DNI", "NombreCompletoAlumno" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "CodigoMateria_UQ",
-                table: "Materia",
+                table: "Materias",
                 column: "CodMateria",
                 unique: true);
 
@@ -98,7 +97,7 @@ namespace Alumnado.BD.Migrations
                 name: "Alumnos");
 
             migrationBuilder.DropTable(
-                name: "Materia");
+                name: "Materias");
         }
     }
 }

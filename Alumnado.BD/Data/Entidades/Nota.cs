@@ -13,12 +13,12 @@ namespace Alumnado.BD.Data.Entidades
         [MaxLength(6, ErrorMessage = "La nota del alumno no puede superar {1} caracteres")]
         public string NotaAlum { get; set; }
 
-        public int AlumnoId { get; set; }
+        public int? AlumnoId { get; set; }
 
         public Alumno Alumno { get; set; }
 
-        //public int MateriaId
+        //public int MateriaId { get; set; }
 
-        //public Materia Materia
+        //public Materia Materia { get; set; }
     }
 }

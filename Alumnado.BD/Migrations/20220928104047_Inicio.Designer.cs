@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Alumnado.BD.Migrations
 {
     [DbContext(typeof(dbContext))]
-    [Migration("20220815121511_cambios")]
-    partial class cambios
+    [Migration("20220928104047_Inicio")]
+    partial class Inicio
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -40,7 +40,7 @@ namespace Alumnado.BD.Migrations
                     b.Property<DateTime?>("FechaCreacion")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("MateriaId")
+                    b.Property<int?>("MateriaId")
                         .HasColumnType("int");
 
                     b.Property<string>("NombreCompletoAlumno")
@@ -51,6 +51,9 @@ namespace Alumnado.BD.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("MateriaId");
+
+                    b.HasIndex(new[] { "DNI", "NombreCompletoAlumno" }, "NomAlumnoDni_UQ")
+                        .IsUnique();
 
                     b.ToTable("Alumnos");
                 });
@@ -92,7 +95,7 @@ namespace Alumnado.BD.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("AlumnoId")
+                    b.Property<int?>("AlumnoId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("FechaCreacion")
@@ -114,9 +117,7 @@ namespace Alumnado.BD.Migrations
                 {
                     b.HasOne("Alumnado.BD.Data.Entidades.Materia", "Materia")
                         .WithMany("Alumnos")
-                        .HasForeignKey("MateriaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("MateriaId");
 
                     b.Navigation("Materia");
                 });
@@ -125,9 +126,7 @@ namespace Alumnado.BD.Migrations
                 {
                     b.HasOne("Alumnado.BD.Data.Entidades.Alumno", "Alumno")
                         .WithMany("Notas")
-                        .HasForeignKey("AlumnoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AlumnoId");
 
                     b.Navigation("Alumno");
                 });
