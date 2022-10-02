@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Alumnado.BD.Migrations
 {
     [DbContext(typeof(dbContext))]
-    [Migration("20220928104047_Inicio")]
+    [Migration("20221002215002_Inicio")]
     partial class Inicio
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -101,6 +101,9 @@ namespace Alumnado.BD.Migrations
                     b.Property<DateTime?>("FechaCreacion")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("MateriaId")
+                        .HasColumnType("int");
+
                     b.Property<string>("NotaAlum")
                         .IsRequired()
                         .HasMaxLength(6)
@@ -109,6 +112,8 @@ namespace Alumnado.BD.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AlumnoId");
+
+                    b.HasIndex("MateriaId");
 
                     b.ToTable("Notas");
                 });
@@ -128,7 +133,13 @@ namespace Alumnado.BD.Migrations
                         .WithMany("Notas")
                         .HasForeignKey("AlumnoId");
 
+                    b.HasOne("Alumnado.BD.Data.Entidades.Materia", "Materia")
+                        .WithMany()
+                        .HasForeignKey("MateriaId");
+
                     b.Navigation("Alumno");
+
+                    b.Navigation("Materia");
                 });
 
             modelBuilder.Entity("Alumnado.BD.Data.Entidades.Alumno", b =>

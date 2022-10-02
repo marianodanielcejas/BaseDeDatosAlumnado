@@ -1,0 +1,94 @@
+﻿@page "/materias"
+@inject IHttpService http
+<h3>Materias</h3>
+<a class = "btn btn-success" href="materias/crear">Nuevo</a>
+<br />
+<table>
+    <tr>
+        <th>CodigoMateria</th>
+        <th>NombreMateria</th>
+    </tr>
+    @if(materias == null)
+    {
+        <tr>Cargando.....</tr>
+    }
+    else if(materias.Count == 0) // Si todavia no cargue ningun alumno.
+    {
+        <tr>No existen Materias</tr>
+    }
+    else
+    {
+        @foreach(var item in materias) //Quiero se muestre la lista de registros de alumnos.
+        {
+            <tr>
+                <td>@item.CodMateria</td>
+                <td>@item.NombreMateria</td>
+                <td><a class = "btn btn-success" href="materias/editar/@item.Id">
+                    Editar Materia
+                    </a>
+                </td>
+                <td><button class = "btn btn-warning" @onclick = "()=>Eliminar(item)"> Eliminar Materia</button></td>
+            </tr>
+        }   
+    } 
+</table>
+
+<Confirmacion @ref = "confirmacion"
+              onConfirm = "GrabarEliminar"
+              onCancel = "Cancelar"
+              Titulo = "BORRAR">
+              <h1>Eliminar Materia</h1>
+              
+    
+    <div>¿Desea eliminar La Materia @eliminarMateria.NombreMateria?</div>
+</Confirmacion>
+
+
+
+@code {
+
+    List <Alumnado.BD.Data.Entidades.Materia> materias;
+    Confirmacion confirmacion;
+    //string NomAlumno = "";
+    //string DniAlumno = "";
+    Alumnado.BD.Data.Entidades.Materia eliminarMateria;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        base.OnInitialized();
+        await Leer();
+    }
+
+    private async Task Leer()
+    {
+        var respuestaHttp = await http.Get<List<Alumnado.BD.Data.Entidades.Materia>>("api/Materias");
+        if (!respuestaHttp.Error)
+        {
+            materias = respuestaHttp.Respuesta;
+        }
+    }
+
+    private void Cancelar()
+    {
+        confirmacion.Ocultar();
+        eliminarMateria = null;
+    }
+
+    private void Eliminar(Alumnado.BD.Data.Entidades.Materia materiaEliminar)
+    {
+        confirmacion.Mostrar();
+        eliminarMateria = materiaEliminar;
+    }
+    private async Task GrabarEliminar()
+    {
+        var respuesta = await http.Delete($"api/Materias/{eliminarMateria.Id}");
+        if (respuesta.Error)
+        {
+            var body = await respuesta.GetBody();
+        }
+        Cancelar();
+        await Leer();
+    }
+    
+}

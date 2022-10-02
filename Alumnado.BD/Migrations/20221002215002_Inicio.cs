@@ -53,6 +53,7 @@ namespace Alumnado.BD.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     NotaAlum = table.Column<string>(type: "nvarchar(6)", maxLength: 6, nullable: false),
                     AlumnoId = table.Column<int>(type: "int", nullable: true),
+                    MateriaId = table.Column<int>(type: "int", nullable: true),
                     FechaCreacion = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
@@ -62,6 +63,11 @@ namespace Alumnado.BD.Migrations
                         name: "FK_Notas_Alumnos_AlumnoId",
                         column: x => x.AlumnoId,
                         principalTable: "Alumnos",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Notas_Materias_MateriaId",
+                        column: x => x.MateriaId,
+                        principalTable: "Materias",
                         principalColumn: "Id");
                 });
 
@@ -86,6 +92,11 @@ namespace Alumnado.BD.Migrations
                 name: "IX_Notas_AlumnoId",
                 table: "Notas",
                 column: "AlumnoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notas_MateriaId",
+                table: "Notas",
+                column: "MateriaId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

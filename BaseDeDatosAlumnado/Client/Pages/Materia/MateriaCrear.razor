@@ -1,0 +1,28 @@
+﻿@page "/materias/crear"
+@inject NavigationManager navigationManager
+@inject IHttpService http
+<h2>Nueva Materia</h2>
+
+<MateriaFormulario onValidSubmit="GrabarNuevo" Materia="materia" onCancel="Cancelar"/>
+@code {
+    private Materia materia = new();
+    private async Task GrabarNuevo() //Metodo para agregar un pais.
+    {
+        //Console.WriteLine($"Graba{alumno.NombreCompletoAlumno}");
+        var httpRespuesta = await http.Post<Materia>("api/Materias", materia);
+        if (httpRespuesta.Error)
+        {
+            var body = await httpRespuesta.GetBody();
+        }
+        navigationManager.NavigateTo("/materias");
+        //Alumnado.BD.Data.Entidades.Alumno alumno = new();
+        //alumno.NombreCompletoAlumno = NomAlumno;
+        //alumno.DNI = DniAlumno;
+        //alumnos.Add(alumno);
+        //Cancelar();
+    }
+    private void Cancelar()
+    {
+         navigationManager.NavigateTo("/materias");
+    }
+}

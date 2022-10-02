@@ -20,7 +20,8 @@ namespace BaseDeDatosAlumnado.Server.Controllers
 
         public async Task<ActionResult<List<Materia>>> Get()
         {
-            return await context.Materias.Include(a => a.Alumnos).ToListAsync();
+            //return await context.Materias.Include(a => a.Alumnos).ToListAsync();
+            return await context.Materias.ToListAsync();
         }
 
         [HttpGet("{id:int}")] // por direccion quiero que me llegue un id.
