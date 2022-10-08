@@ -1,0 +1,92 @@
+﻿@page "/notas"
+@inject IHttpService http
+<h3>Notas</h3>
+<a class = "btn btn-success" href="notas/crear">Nuevo</a>
+<br />
+<table>
+    <tr>
+        <th>NotaAlumno</th>
+    </tr>
+    @if(notas == null)
+    {
+        <tr>Cargando.....</tr>
+    }
+    else if(notas.Count == 0) // Si todavia no cargue ningun alumno.
+    {
+        <tr>No existen Notas</tr>
+    }
+    else
+    {
+        @foreach(var item in notas) //Quiero se muestre la lista de registros de alumnos.
+        {
+            <tr>
+                <td>@item.NotaAlum</td>
+                <td><a class = "btn btn-success" href="notas/editar/@item.Id">
+                    Editar Nota
+                    </a>
+                </td>
+                <td><button class = "btn btn-warning" @onclick = "()=>Eliminar(item)"> Eliminar Nota</button></td>
+            </tr>
+        }   
+    } 
+</table>
+
+<Confirmacion @ref = "confirmacion"
+              onConfirm = "GrabarEliminar"
+              onCancel = "Cancelar"
+              Titulo = "BORRAR">
+              <h1>Eliminar Nota</h1>
+              
+    
+    <div>¿Desea eliminar La Nota @eliminarNota.NotaAlum?</div>
+</Confirmacion>
+
+
+
+@code {
+
+    List <Alumnado.BD.Data.Entidades.Nota> notas;
+    Confirmacion confirmacion;
+    //string NomAlumno = "";
+    //string DniAlumno = "";
+    Alumnado.BD.Data.Entidades.Nota eliminarNota;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        base.OnInitialized();
+        await Leer();
+    }
+
+    private async Task Leer()
+    {
+        var respuestaHttp = await http.Get<List<Alumnado.BD.Data.Entidades.Nota>>("api/Notas");
+        if (!respuestaHttp.Error)
+        {
+            notas = respuestaHttp.Respuesta;
+        }
+    }
+
+    private void Cancelar()
+    {
+        confirmacion.Ocultar();
+        eliminarNota = null;
+    }
+
+    private void Eliminar(Alumnado.BD.Data.Entidades.Nota notaEliminar)
+    {
+        confirmacion.Mostrar();
+        eliminarNota = notaEliminar;
+    }
+    private async Task GrabarEliminar()
+    {
+        var respuesta = await http.Delete($"api/Notas/{eliminarNota.Id}");
+        if (respuesta.Error)
+        {
+            var body = await respuesta.GetBody();
+        }
+        Cancelar();
+        await Leer();
+    }
+    
+}

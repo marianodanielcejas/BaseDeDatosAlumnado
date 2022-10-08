@@ -20,7 +20,8 @@ namespace BaseDeDatosAlumnado.Server.Controllers
 
         public async Task<ActionResult<List<Nota>>> Get()
         {
-            return await context.Notas.Include(a => a.Alumno).ToListAsync();
+            //return await context.Notas.Include(a => a.Alumno).ToListAsync();
+            return await context.Notas.ToListAsync();
         }
 
         [HttpPost]

@@ -1,0 +1,46 @@
+﻿@page "/notas/editar/{NotaId:int}" 
+@inject NavigationManager navigationManager
+@inject IHttpService http
+
+<h2>Modificar Nota</h2>
+
+<NotaFormulario onValidSubmit="GrabarModificacion" Nota="nota" onCancel="Cancelar"/>
+
+@code {
+    private Nota nota;
+    [Parameter] public int NotaId { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        await MostrarNota();
+    }
+    private async Task MostrarNota()
+    {
+        var httpRespuesta = await http.Get<Nota>($"api/Notas/{NotaId}");
+        if (httpRespuesta.Error)
+        {
+            var body = await httpRespuesta.GetBody();
+        }
+        else
+        {
+            nota = httpRespuesta.Respuesta;
+        }
+    }
+
+
+    private async Task GrabarModificacion() //Metodo para agregar un pais.
+    {
+        var httpRespuesta = await http.Put<Nota>($"api/Notas/{NotaId}", nota);
+        if (httpRespuesta.Error)
+        {
+            var body = await httpRespuesta.GetBody();
+        }
+        navigationManager.NavigateTo("/notas");
+        
+    }
+    private void Cancelar()
+    {
+        navigationManager.NavigateTo("/notas");
+    }
+}
+

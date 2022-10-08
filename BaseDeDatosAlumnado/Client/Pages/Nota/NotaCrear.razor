@@ -1,0 +1,28 @@
+﻿@page "/notas/crear"
+@inject NavigationManager navigationManager
+@inject IHttpService http
+<h2>Nueva Nota</h2>
+
+<NotaFormulario onValidSubmit="GrabarNuevo" Nota="nota" onCancel="Cancelar"/>
+@code {
+    private Nota nota = new();
+    private async Task GrabarNuevo() //Metodo para agregar un pais.
+    {
+        //Console.WriteLine($"Graba{alumno.NombreCompletoAlumno}");
+        var httpRespuesta = await http.Post<Nota>("api/Notas", nota);
+        if (httpRespuesta.Error)
+        {
+            var body = await httpRespuesta.GetBody();
+        }
+        navigationManager.NavigateTo("/notas");
+        //Alumnado.BD.Data.Entidades.Alumno alumno = new();
+        //alumno.NombreCompletoAlumno = NomAlumno;
+        //alumno.DNI = DniAlumno;
+        //alumnos.Add(alumno);
+        //Cancelar();
+    }
+    private void Cancelar()
+    {
+         navigationManager.NavigateTo("/notas");
+    }
+}
